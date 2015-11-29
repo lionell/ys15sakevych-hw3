@@ -6,6 +6,11 @@ import ua.yandex.shad.function.IntPredicate;
 import ua.yandex.shad.function.IntConsumer;
 import ua.yandex.shad.function.IntBinaryOperator;
 
+/**
+ * Created by lionell on 11/29/15.
+ *
+ * @author Ruslan Sakevych
+ */
 public interface IntStream {
 
     Double average();
