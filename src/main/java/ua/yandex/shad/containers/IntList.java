@@ -12,7 +12,11 @@ public class IntList implements ListOfInts {
     private Node head;
     private Node tail;
 
-    public IntList() {}
+    public IntList(int... values) {
+        for (int value : values) {
+            add(value);
+        }
+    }
 
     public void add(int value) {
         Node node = new Node(value);
