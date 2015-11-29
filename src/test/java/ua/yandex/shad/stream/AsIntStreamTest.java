@@ -10,8 +10,9 @@ import static org.junit.Assert.*;
  * @author Ruslan Sakevych
  */
 public class AsIntStreamTest {
+
     @Test
-    public void trueAssert() {
+    public void staticOf_withNoParameters_shouldReturnEmptyIntStream() {
         assertTrue(true);
     }
 }
