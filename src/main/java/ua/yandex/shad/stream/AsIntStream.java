@@ -1,5 +1,6 @@
 package ua.yandex.shad.stream;
 
+import ua.yandex.shad.containers.FunctionList;
 import ua.yandex.shad.containers.IntList;
 import ua.yandex.shad.function.IntUnaryOperator;
 import ua.yandex.shad.function.IntToIntStreamFunction;
@@ -13,13 +14,15 @@ import ua.yandex.shad.function.IntBinaryOperator;
  * @author Ruslan Sakevych
  */
 public class AsIntStream implements IntStream {
-    private IntList list = new IntList();
+    private IntList ints = new IntList();
+    private FunctionList functions = new FunctionList();
 
-    private AsIntStream() {}
+    private AsIntStream() {
+    }
 
     public static IntStream of(int... values) {
         AsIntStream intStream = new AsIntStream();
-        intStream.list = new IntList(values);
+        intStream.ints = new IntList(values);
         return intStream;
     }
 

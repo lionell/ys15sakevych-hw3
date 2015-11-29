@@ -5,6 +5,6 @@ package ua.yandex.shad.function;
  *
  * @author Ruslan Sakevych
  */
-public interface IntBinaryOperator {
+public interface IntBinaryOperator extends IntFunction {
     int apply(int left, int right);
 }

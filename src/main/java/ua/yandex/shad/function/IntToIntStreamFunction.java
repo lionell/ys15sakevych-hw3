@@ -7,6 +7,6 @@ import ua.yandex.shad.stream.IntStream;
  *
  * @author Ruslan Sakevych
  */
-public interface IntToIntStreamFunction {
+public interface IntToIntStreamFunction extends IntFunction {
      IntStream applyAsIntStream(int value);
 }

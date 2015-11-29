@@ -83,6 +83,5 @@ public class IntList implements ListOfInts {
             current = current.next;
             return value;
         }
-
     }
 }

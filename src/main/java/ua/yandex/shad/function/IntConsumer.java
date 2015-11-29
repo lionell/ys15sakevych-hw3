@@ -5,6 +5,6 @@ package ua.yandex.shad.function;
  *
  * @author Ruslan Sakevych
  */
-public interface IntConsumer {
+public interface IntConsumer extends IntFunction {
     void accept(int value);
 }

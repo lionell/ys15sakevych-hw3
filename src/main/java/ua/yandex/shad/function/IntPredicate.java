@@ -5,6 +5,6 @@ package ua.yandex.shad.function;
  *
  * @author Ruslan Sakevych
  */
-public interface IntPredicate {
+public interface IntPredicate extends IntFunction {
     boolean test(int value);
 }

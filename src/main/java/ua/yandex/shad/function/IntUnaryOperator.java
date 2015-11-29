@@ -5,6 +5,6 @@ package ua.yandex.shad.function;
  *
  * @author Ruslan Sakevych
  */
-public interface IntUnaryOperator {
+public interface IntUnaryOperator extends IntFunction {
     int apply(int operand);
 }
