@@ -51,7 +51,7 @@ public class FunctionList implements ListOfFunctions {
     public Iterator<IntFunction> iterator() {
         return new FunctionListIterator();
     }
-
+    
     private static class Node {
         private IntFunction function;
         private Node next;

@@ -1,5 +1,6 @@
 package ua.yandex.shad.containers;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -74,6 +75,28 @@ public class IntList implements ListOfInts {
     @Override
     public Iterator<Integer> iterator() {
         return new IntListIterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        IntList integers = (IntList) o;
+
+        return size == integers.size &&
+                Arrays.equals(toArray(), integers.toArray());
+
+    }
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int hash = size;
+        for (int x : this) {
+            hash  = hash * PRIME + x;
+        }
+        return hash;
     }
 
     private static class Node {

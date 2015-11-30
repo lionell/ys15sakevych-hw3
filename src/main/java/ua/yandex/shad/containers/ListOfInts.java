@@ -6,10 +6,16 @@ package ua.yandex.shad.containers;
  * @author Ruslan Sakevych
  */
 public interface ListOfInts extends Iterable<Integer> {
+
     void add(int value);
+
     void addList(IntList other);
+
     void clear();
+
     int length();
+
     boolean isEmpty();
+
     int[] toArray();
 }

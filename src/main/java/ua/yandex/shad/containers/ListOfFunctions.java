@@ -8,8 +8,12 @@ import ua.yandex.shad.function.IntFunction;
  * @author Ruslan Sakevych
  */
 public interface ListOfFunctions extends Iterable<IntFunction> {
+    
     void add(IntFunction function);
+
     void clear();
+
     int length();
+
     boolean isEmpty();
 }

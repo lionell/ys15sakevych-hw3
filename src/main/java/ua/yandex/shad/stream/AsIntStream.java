@@ -18,7 +18,7 @@ public class AsIntStream implements IntStream {
     private IntList ints = new IntList();
     private FunctionList functions = new FunctionList();
 
-    private AsIntStream() {
+    AsIntStream() {
     }
 
     public static IntStream of(int... values) {
@@ -70,7 +70,7 @@ public class AsIntStream implements IntStream {
 
     @Override
     public Double average() {
-        return (double)sum() / count();
+        return (double) sum() / count();
     }
 
     @Override
@@ -154,4 +154,33 @@ public class AsIntStream implements IntStream {
         return this;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AsIntStream intStream = (AsIntStream) o;
+
+        applyModifiers();
+        intStream.applyModifiers();
+
+        return ints.equals(intStream.ints);
+    }
+
+    @Override
+    public int hashCode() {
+        return ints.hashCode();
+    }
+
+    IntList getInts() {
+        return ints;
+    }
+
+    FunctionList getFunctions() {
+        return functions;
+    }
 }
