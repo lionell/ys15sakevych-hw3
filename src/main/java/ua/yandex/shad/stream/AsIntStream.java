@@ -70,7 +70,7 @@ public class AsIntStream implements IntStream {
         ints = flatMappedInts;
     }
 
-    private void closeStream() {
+    private void close() {
         state = State.CLOSED;
     }
 
@@ -137,7 +137,7 @@ public class AsIntStream implements IntStream {
         for (int x : ints) {
             action.accept(x);
         }
-        closeStream();
+        close();
     }
 
     @Override
