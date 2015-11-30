@@ -331,4 +331,33 @@ public class AsIntStreamTest {
         assertArrayEquals(expectedInts, ints);
     }
     //</editor-fold>
+
+    //<editor-fold desc="flatMap">
+    @Test
+    public void flatMap_emptyStream_streamShouldNotChange() {
+        IntStream stream = AsIntStream.of();
+
+        stream.flatMap(x -> AsIntStream.of(x + 1));
+
+        assertEquals(AsIntStream.of(), stream);
+    }
+
+    @Test
+    public void flatMap_streamWithOneElement_streamShouldBeCorrect() {
+        IntStream stream = AsIntStream.of(7);
+
+        stream.flatMap(x -> AsIntStream.of(x - 1, x, x + 1));
+
+        assertEquals(AsIntStream.of(6, 7, 8), stream);
+    }
+
+    @Test
+    public void flatMap_streamWithManyElements_streamShouldBeCorrect() {
+        IntStream stream = AsIntStream.of(1, 4, 6);
+
+        stream.flatMap(x -> AsIntStream.of(x - 1, x, x + 1));
+
+        assertEquals(AsIntStream.of(0, 1, 2, 3, 4, 5, 5, 6, 7), stream);
+    }
+    //</editor-fold>
 }
