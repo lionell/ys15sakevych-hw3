@@ -197,6 +197,7 @@ public class AsIntStream implements IntStream {
 
     @Override
     public int hashCode() {
+        applyModifiers();
         return ints.hashCode();
     }
 
