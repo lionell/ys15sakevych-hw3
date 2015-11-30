@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
  * @author Ruslan Sakevych
  */
 public class AsIntStreamTest {
+    private static final double EPS = 1e-10;
     private AsIntStream intStream;
     private IntList ints;
     private FunctionList functions;
@@ -29,8 +30,9 @@ public class AsIntStreamTest {
         ints.add(2);
     }
 
+    //<editor-fold desc="static of">
     @Test
-    public void staticOf_withNoInt_shouldReturnEmptyIntStream() {
+    public void staticOf_withNoParameter_shouldReturnEmptyStream() {
         IntList expectedInts = new IntList();
 
         IntStream stream = AsIntStream.of();
@@ -40,7 +42,7 @@ public class AsIntStreamTest {
     }
 
     @Test
-    public void staticOf_withOneInt_shouldReturnCorrectIntStream() {
+    public void staticOf_withOneParameter_shouldReturnCorrectStream() {
         IntList expectedInts = new IntList(1);
 
         IntStream stream = AsIntStream.of(1);
@@ -50,7 +52,7 @@ public class AsIntStreamTest {
     }
 
     @Test
-    public void staticOf_withManyInts_shouldReturnCorrectIntStream() {
+    public void staticOf_withManyParameters_shouldReturnCorrectStream() {
         IntList expectedInts = new IntList(1, 2, 3);
 
         IntStream stream = AsIntStream.of(1, 2, 3);
@@ -58,4 +60,31 @@ public class AsIntStreamTest {
 
         assertEquals(expectedInts, asStream.getInts());
     }
+    //</editor-fold>
+
+    //<editor-fold desc="average">
+    @Test
+    public void average_emptyStream_shouldReturnZero() {
+        IntStream stream = AsIntStream.of();
+        double actualAverage = stream.average();
+
+        assertEquals(0.0, actualAverage, EPS);
+    }
+
+    @Test
+    public void average_streamWithOneElement_shouldReturnCorrectValue() {
+        IntStream stream = AsIntStream.of(5);
+        double actualAverage = stream.average();
+
+        assertEquals(5.0, actualAverage, EPS);
+    }
+
+    @Test
+    public void average_streamWithManyElements_shouldReturnCorrectValue() {
+        IntStream stream = AsIntStream.of(3, 1, 1, 2, 3, 2);
+        double actualAverage = stream.average();
+
+        assertEquals(2.0, actualAverage, EPS);
+    }
+    //</editor-fold>
 }
