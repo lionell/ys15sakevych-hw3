@@ -2,6 +2,7 @@ package ua.yandex.shad.containers;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by lionell on 11/29/15.
@@ -79,13 +80,17 @@ public class IntList implements ListOfInts {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         IntList integers = (IntList) o;
 
-        return size == integers.size &&
-                Arrays.equals(toArray(), integers.toArray());
+        return size == integers.size
+                && Arrays.equals(toArray(), integers.toArray());
 
     }
 
@@ -119,6 +124,9 @@ public class IntList implements ListOfInts {
 
         @Override
         public Integer next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             int value = current.value;
             current = current.next;
             return value;

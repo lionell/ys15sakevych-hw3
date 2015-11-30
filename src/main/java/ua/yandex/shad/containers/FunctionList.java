@@ -3,6 +3,7 @@ package ua.yandex.shad.containers;
 import ua.yandex.shad.function.IntFunction;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by lionell on 11/30/15.
@@ -71,6 +72,9 @@ public class FunctionList implements ListOfFunctions {
 
         @Override
         public IntFunction next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             IntFunction function = current.function;
             current = current.next;
             return function;
