@@ -55,18 +55,14 @@ public class AsIntStreamTest {
     public void average_streamWithOneElement_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(5);
 
-        double actualAverage = stream.average();
-
-        assertEquals(5.0, actualAverage, EPS);
+        assertEquals(5.0, stream.average(), EPS);
     }
 
     @Test
     public void average_streamWithManyElements_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(3, 1, 1, 2, 3, 2);
 
-        double actualAverage = stream.average();
-
-        assertEquals(2.0, actualAverage, EPS);
+        assertEquals(2.0, stream.average(), EPS);
     }
     //</editor-fold>
 
@@ -80,18 +76,14 @@ public class AsIntStreamTest {
     public void max_streamWithOneElement_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(-5);
 
-        int actualMax = stream.max();
-
-        assertEquals(-5, actualMax);
+        assertEquals(-5, stream.max());
     }
 
     @Test
     public void max_streamWithManyElements_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(13, 10, -1, 2, 33, 2);
 
-        int actualMax = stream.max();
-
-        assertEquals(33, actualMax);
+        assertEquals(33, stream.max());
     }
     //</editor-fold>
 
@@ -105,18 +97,14 @@ public class AsIntStreamTest {
     public void min_streamWithOneElement_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(-1);
 
-        int actualMin = stream.min();
-
-        assertEquals(-1, actualMin);
+        assertEquals(-1, stream.min());
     }
 
     @Test
     public void min_streamWithManyElements_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(-314, -1, 1, -2, 3, -2);
 
-        int actualMin = stream.min();
-
-        assertEquals(-314, actualMin);
+        assertEquals(-314, stream.min());
     }
     //</editor-fold>
 
@@ -125,27 +113,21 @@ public class AsIntStreamTest {
     public void count_emptyStream_shouldReturnZero() {
         IntStream stream = AsIntStream.of();
 
-        int actualCount = stream.count();
-
-        assertEquals(0, actualCount);
+        assertEquals(0, stream.count());
     }
 
     @Test
     public void count_streamWithOneElement_shouldReturnOne() {
         IntStream stream = AsIntStream.of(-100);
 
-        int actualCount = stream.count();
-
-        assertEquals(1, actualCount);
+        assertEquals(1, stream.count());
     }
 
     @Test
     public void count_streamWithManyElements_shouldReturnCorrectValue() {
         IntStream stream = AsIntStream.of(-314, -1, 1, -2, 3, -2, 7, 9);
 
-        int actualCount = stream.count();
-
-        assertEquals(8, actualCount);
+        assertEquals(8, stream.count());
     }
     //</editor-fold>
 
@@ -402,4 +384,31 @@ public class AsIntStreamTest {
         assertEquals(stream1, stream2);
     }
     //</editor-fold>
+
+    @Test
+    public void hashCode_differentStreams() {
+        IntStream stream1 = AsIntStream.of(1, 2, 3);
+        IntStream stream2 = AsIntStream.of(3, 2, 1);
+
+        assertNotEquals(stream1.hashCode(), stream2.hashCode());
+    }
+
+    @Test
+    public void hashCode_equalStreams() {
+        IntStream stream1 = AsIntStream.of(1, 2, 3);
+        IntStream stream2 = AsIntStream.of(1, 2, 3);
+
+        assertEquals(stream1.hashCode(), stream2.hashCode());
+    }
+
+    @Test
+    public void hashCode_equalStreamsWithDelayedOperations() {
+        IntStream stream1 = AsIntStream.of(-1, 1, 2, 0, -5, 3)
+                .filter(x -> x > 0)
+                .map(x -> x * x)
+                .flatMap(x -> AsIntStream.of(x - 1, x, x + 1));
+        IntStream stream2 = AsIntStream.of(0, 1, 2, 3, 4, 5, 8, 9, 10);
+
+        assertEquals(stream1.hashCode(), stream2.hashCode());
+    }
 }
