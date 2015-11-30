@@ -17,6 +17,7 @@ import ua.yandex.shad.function.IntBinaryOperator;
 public class AsIntStream implements IntStream {
     private IntList ints = new IntList();
     private FunctionList functions = new FunctionList();
+    private State state = State.OPENED;
 
     AsIntStream() {
     }
@@ -28,6 +29,7 @@ public class AsIntStream implements IntStream {
     }
 
     private void applyModifiers() {
+        checkState();
         for (IntFunction function : functions) {
             if (function instanceof IntPredicate) {
                 applyFilter((IntPredicate) function);
@@ -66,6 +68,16 @@ public class AsIntStream implements IntStream {
             flatMappedInts.addList(generatedIntStream.ints);
         }
         ints = flatMappedInts;
+    }
+
+    private void closeStream() {
+        state = State.CLOSED;
+    }
+
+    private void checkState() {
+        if (state == State.CLOSED) {
+            throw new IllegalStateException("Stream is closed.");
+        }
     }
 
     @Override
@@ -115,6 +127,7 @@ public class AsIntStream implements IntStream {
         for (int x : ints) {
             action.accept(x);
         }
+        closeStream();
     }
 
     @Override
@@ -183,5 +196,9 @@ public class AsIntStream implements IntStream {
 
     FunctionList getFunctions() {
         return functions;
+    }
+
+    private enum State {
+        OPENED, CLOSED
     }
 }
