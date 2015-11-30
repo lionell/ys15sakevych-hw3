@@ -360,4 +360,46 @@ public class AsIntStreamTest {
         assertEquals(AsIntStream.of(0, 1, 2, 3, 4, 5, 5, 6, 7), stream);
     }
     //</editor-fold>
+
+    //<editor-fold desc="equals">
+    @Test
+    public void equals_twoEqualReferences() {
+        IntStream stream = AsIntStream.of(1, 2, 3);
+
+        assertEquals(stream, stream);
+    }
+
+    @Test
+    public void equals_nullReference() {
+        IntStream stream = AsIntStream.of(1, 2, 3);
+
+        assertNotEquals(stream, null);
+    }
+
+    @Test
+    public void equals_differentClass() {
+        IntStream stream = AsIntStream.of(1, 2, 3);
+
+        assertNotEquals(stream, new Object());
+    }
+
+    @Test
+    public void equals_equalStreams() {
+        IntStream stream1 = AsIntStream.of(1, 2, 3);
+        IntStream stream2 = AsIntStream.of(1, 2, 3);
+
+        assertEquals(stream1, stream2);
+    }
+
+    @Test
+    public void equals_equalStreamsWithDelayedOperations() {
+        IntStream stream1 = AsIntStream.of(-1, 1, 2, 0, -5, 3)
+                .filter(x -> x > 0)
+                .map(x -> x * x)
+                .flatMap(x -> AsIntStream.of(x - 1, x, x + 1));
+        IntStream stream2 = AsIntStream.of(0, 1, 2, 3, 4, 5, 8, 9, 10);
+
+        assertEquals(stream1, stream2);
+    }
+    //</editor-fold>
 }

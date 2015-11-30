@@ -35,7 +35,7 @@ public class AsIntStream implements IntStream {
                 applyFilter((IntPredicate) function);
             } else if (function instanceof IntUnaryOperator) {
                 applyMap((IntUnaryOperator) function);
-            } else if (function instanceof IntToIntStreamFunction) {
+            } else {
                 applyFlatMap((IntToIntStreamFunction) function);
             }
         }
