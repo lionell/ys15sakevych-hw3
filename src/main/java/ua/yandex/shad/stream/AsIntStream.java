@@ -82,6 +82,10 @@ public class AsIntStream implements IntStream {
 
     @Override
     public double average() {
+        applyModifiers();
+        if (ints.isEmpty()) {
+            return 0;
+        }
         return (double) sum() / count();
     }
 
