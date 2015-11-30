@@ -97,26 +97,16 @@ public class AsIntStream implements IntStream {
     public int max() {
         applyModifiers();
         checkEmptiness();
-        int maximum = Integer.MIN_VALUE;
-        for (int x : ints) {
-            if (x > maximum) {
-                maximum = x;
-            }
-        }
-        return maximum;
+        return reduce(Integer.MIN_VALUE,
+                (max, x) -> max = Math.max(max, x));
     }
 
     @Override
     public int min() {
         applyModifiers();
         checkEmptiness();
-        int minimum = Integer.MAX_VALUE;
-        for (int x : ints) {
-            if (x < minimum) {
-                minimum = x;
-            }
-        }
-        return minimum;
+        return reduce(Integer.MAX_VALUE,
+                (min, x) -> min = Math.min(min, x));
     }
 
     @Override
@@ -159,11 +149,7 @@ public class AsIntStream implements IntStream {
     @Override
     public int sum() {
         applyModifiers();
-        int sum = 0;
-        for (int x : ints) {
-            sum += x;
-        }
-        return sum;
+        return reduce(0, (sum, x) -> sum += x);
     }
 
     @Override
