@@ -259,4 +259,32 @@ public class AsIntStreamTest {
     }
     //</editor-fold>
 
+    //<editor-fold desc="sum">
+    @Test
+    public void sum_emptyStream_shouldReturnZero() {
+        IntStream stream = AsIntStream.of();
+
+        int actualSum = stream.sum();
+
+        assertEquals(0, actualSum);
+    }
+
+    @Test
+    public void sum_streamWithOneElement_shouldReturnThisElement() {
+        IntStream stream = AsIntStream.of(54);
+
+        int actualSum = stream.sum();
+
+        assertEquals(54, actualSum);
+    }
+
+    @Test
+    public void sum_streamWithManyElements_shouldReturnCorrectValue() {
+        IntStream stream = AsIntStream.of(-14, -1, 1, -2, 3, -2, 7, 9);
+
+        int actualSum = stream.sum();
+
+        assertEquals(1, actualSum);
+    }
+    //</editor-fold>
 }
