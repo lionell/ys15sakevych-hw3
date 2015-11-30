@@ -287,4 +287,48 @@ public class AsIntStreamTest {
         assertEquals(1, actualSum);
     }
     //</editor-fold>
+
+    //<editor-fold desc="toArray">
+    @Test
+    public void toArray_emptyStream_shouldReturnEmptyArray() {
+        IntStream stream = AsIntStream.of();
+
+        int[] ints = stream.toArray();
+
+        assertEquals(0, ints.length);
+    }
+
+    @Test
+    public void toArray_streamWithOneElement_shouldReturnCorrectArray() {
+        int[] expectedInts = {34};
+        IntStream stream = AsIntStream.of(34);
+
+        int[] ints = stream.toArray();
+
+        assertArrayEquals(expectedInts, ints);
+    }
+
+    @Test
+    public void toArray_streamWithManyElements_shouldReturnCorrectArray() {
+        int[] expectedInts = {34, 43};
+        IntStream stream = AsIntStream.of(34, 43);
+
+        int[] ints = stream.toArray();
+
+        assertArrayEquals(expectedInts, ints);
+    }
+
+    @Test
+    public void toArray_streamWithDelayedOperations_shouldReturnCorrectArray() {
+        int[] expectedInts = {0, 1, 2, 3, 4, 5, 8, 9, 10};
+        IntStream stream = AsIntStream.of(-1, 1, 2, 0, -5, 3)
+                .filter(x -> x > 0)
+                .map(x -> x * x)
+                .flatMap(x -> AsIntStream.of(x - 1, x, x + 1));
+
+        int[] ints = stream.toArray();
+
+        assertArrayEquals(expectedInts, ints);
+    }
+    //</editor-fold>
 }
