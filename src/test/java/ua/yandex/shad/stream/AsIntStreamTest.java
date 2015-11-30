@@ -200,16 +200,6 @@ public class AsIntStreamTest {
     }
 
     @Test
-    public void forEach_streamWithOneElement_listShouldContainsCorrectElement() {
-        IntStream stream = AsIntStream.of(45);
-        IntList objective = new IntList();
-
-        stream.forEach(objective::add);
-
-        assertEquals(new IntList(45), objective);
-    }
-
-    @Test
     public void forEach_streamWithManyElements_listShouldContainsCorrectElements() {
         IntStream stream = AsIntStream.of(45, 1, 25);
         IntList objective = new IntList();
@@ -228,4 +218,25 @@ public class AsIntStreamTest {
         stream.forEach(objective::add);
     }
     //</editor-fold>
+
+    //<editor-fold desc="map">
+    @Test
+    public void map_emptyStream_streamShouldNotChange() {
+        IntStream stream = AsIntStream.of();
+
+        stream.map(x -> 2 * x);
+
+        assertEquals(AsIntStream.of(), stream);
+    }
+
+    @Test
+    public void map_streamWithManyElementsAndSquareOperator_streamShouldBeCorrect() {
+        IntStream stream = AsIntStream.of(1, 2, 3);
+
+        stream.map(x -> x * x);
+
+        assertEquals(AsIntStream.of(1, 4, 9), stream);
+    }
+    //</editor-fold>
+
 }
