@@ -128,7 +128,7 @@ public class AsIntStream implements IntStream {
         applyModifiers();
         int result = identity;
         for (int x : ints) {
-            result = operator.apply(identity, x);
+            result = operator.apply(result, x);
         }
         return result;
     }
