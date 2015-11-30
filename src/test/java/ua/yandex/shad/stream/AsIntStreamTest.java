@@ -218,5 +218,14 @@ public class AsIntStreamTest {
 
         assertEquals(new IntList(45, 1, 25), objective);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void forEach_tryReuseStream_shouldThrowException() {
+        IntStream stream = AsIntStream.of(1, 2, 3);
+        IntList objective = new IntList();
+
+        stream.forEach(objective::add);
+        stream.forEach(objective::add);
+    }
     //</editor-fold>
 }

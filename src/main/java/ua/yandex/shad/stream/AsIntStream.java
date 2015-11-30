@@ -76,7 +76,7 @@ public class AsIntStream implements IntStream {
 
     private void checkState() {
         if (state == State.CLOSED) {
-            throw new IllegalStateException("Stream is closed.");
+            throw new IllegalStateException();
         }
     }
 
