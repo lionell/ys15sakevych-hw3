@@ -80,18 +80,23 @@ public class AsIntStream implements IntStream {
         }
     }
 
+    private void checkEmptiness() {
+        if (ints.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     @Override
     public double average() {
         applyModifiers();
-        if (ints.isEmpty()) {
-            return 0;
-        }
+        checkEmptiness();
         return (double) sum() / count();
     }
 
     @Override
     public int max() {
         applyModifiers();
+        checkEmptiness();
         int maximum = Integer.MIN_VALUE;
         for (int x : ints) {
             if (x > maximum) {
@@ -104,6 +109,7 @@ public class AsIntStream implements IntStream {
     @Override
     public int min() {
         applyModifiers();
+        checkEmptiness();
         int minimum = Integer.MAX_VALUE;
         for (int x : ints) {
             if (x < minimum) {
