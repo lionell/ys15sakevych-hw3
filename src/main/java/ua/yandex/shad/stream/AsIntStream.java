@@ -69,12 +69,12 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Double average() {
+    public double average() {
         return (double) sum() / count();
     }
 
     @Override
-    public Integer max() {
+    public int max() {
         applyModifiers();
         int maximum = Integer.MIN_VALUE;
         for (int x : ints) {
@@ -86,7 +86,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer min() {
+    public int min() {
         applyModifiers();
         int minimum = Integer.MAX_VALUE;
         for (int x : ints) {
@@ -98,7 +98,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public long count() {
+    public int count() {
         applyModifiers();
         return ints.length();
     }
@@ -134,7 +134,7 @@ public class AsIntStream implements IntStream {
     }
 
     @Override
-    public Integer sum() {
+    public int sum() {
         applyModifiers();
         int sum = 0;
         for (int x : ints) {
