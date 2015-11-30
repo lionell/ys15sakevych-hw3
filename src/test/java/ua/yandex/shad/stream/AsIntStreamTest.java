@@ -239,4 +239,24 @@ public class AsIntStreamTest {
     }
     //</editor-fold>
 
+    //<editor-fold desc="reduce">
+    @Test
+    public void reduce_emptyStream_shouldReturnIdentity() {
+        IntStream stream = AsIntStream.of();
+
+        int actualIdentity = stream.reduce(123, (sum, x) -> sum += x);
+
+        assertEquals(123, actualIdentity);
+    }
+
+    @Test
+    public void reduce_streamWithManyElementsAndSumOperator_shouldReturnCorrectValue() {
+        IntStream stream = AsIntStream.of(1, 2, 3, -1);
+
+        int actualIdentity = stream.reduce(4, (sum, x) -> sum += x);
+
+        assertEquals(9, actualIdentity);
+    }
+    //</editor-fold>
+
 }

@@ -204,10 +204,6 @@ public class AsIntStream implements IntStream {
         return ints;
     }
 
-    FunctionList getFunctions() {
-        return functions;
-    }
-
     private enum State {
         OPENED, CLOSED
     }
