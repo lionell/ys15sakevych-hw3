@@ -13,9 +13,9 @@ public class App {
     public static void main(String[] args) {
         System.out.println("Hello from App!");
         IntStream intStream = AsIntStream.of(1, 2, 3);
-        //streamOperations(intStream);
-        //streamToArray(intStream);
-        //streamForEach(intStream);
+        streamOperations(intStream);
+        streamToArray(intStream);
+        streamForEach(intStream);
         intListTest();
     }
 
@@ -50,6 +50,6 @@ public class App {
         list2.add(6);
         list1.addList(list2);
         list1.forEach(System.out::println);
-//        list2.forEach(System.out::println);
+        list2.forEach(System.out::println);
     }
 }

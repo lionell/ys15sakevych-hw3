@@ -17,6 +17,7 @@ public class FunctionList implements ListOfFunctions {
     public FunctionList() {
     }
 
+    @Override
     public void add(IntFunction function) {
         Node node = new Node(function);
         if (head != null) {
@@ -29,10 +30,19 @@ public class FunctionList implements ListOfFunctions {
         size++;
     }
 
+    @Override
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    @Override
     public int length() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }

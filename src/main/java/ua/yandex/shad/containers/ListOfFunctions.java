@@ -9,6 +9,7 @@ import ua.yandex.shad.function.IntFunction;
  */
 public interface ListOfFunctions extends Iterable<IntFunction> {
     void add(IntFunction function);
+    void clear();
     int length();
     boolean isEmpty();
 }

@@ -15,4 +15,9 @@ public class AsIntStreamTest {
     public void staticOf_withNoParameters_shouldReturnEmptyIntStream() {
         assertTrue(true);
     }
+
+    private int[] toArray(AsIntStream intStream) {
+        //
+        return null;
+    }
 }

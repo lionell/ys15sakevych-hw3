@@ -18,6 +18,7 @@ public class IntList implements ListOfInts {
         }
     }
 
+    @Override
     public void add(int value) {
         Node node = new Node(value);
         if (head != null) {
@@ -30,6 +31,7 @@ public class IntList implements ListOfInts {
         size++;
     }
 
+    @Override
     public void addList(IntList other) {
         if (isEmpty()) {
             tail = other.tail;
@@ -38,20 +40,35 @@ public class IntList implements ListOfInts {
             head.next = other.tail;
         }
         head = other.head;
+        size += other.size;
         other.clear();
     }
 
+    @Override
     public void clear() {
         head = null;
         tail = null;
+        size = 0;
     }
 
+    @Override
     public int length() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    @Override
+    public int[] toArray() {
+        int[] result = new int[size];
+        Iterator<Integer> it = iterator();
+        for (int i = 0; i < size; i++) {
+            result[i] = it.next();
+        }
+        return result;
     }
 
     @Override

@@ -11,4 +11,5 @@ public interface ListOfInts extends Iterable<Integer> {
     void clear();
     int length();
     boolean isEmpty();
+    int[] toArray();
 }

@@ -2,6 +2,7 @@ package ua.yandex.shad.stream;
 
 import ua.yandex.shad.containers.FunctionList;
 import ua.yandex.shad.containers.IntList;
+import ua.yandex.shad.function.IntFunction;
 import ua.yandex.shad.function.IntUnaryOperator;
 import ua.yandex.shad.function.IntToIntStreamFunction;
 import ua.yandex.shad.function.IntPredicate;
@@ -26,59 +27,131 @@ public class AsIntStream implements IntStream {
         return intStream;
     }
 
+    private void applyModifiers() {
+        for (IntFunction function : functions) {
+            if (function instanceof IntPredicate) {
+                applyFilter((IntPredicate) function);
+            } else if (function instanceof IntUnaryOperator) {
+                applyMap((IntUnaryOperator) function);
+            } else if (function instanceof IntToIntStreamFunction) {
+                applyFlatMap((IntToIntStreamFunction) function);
+            }
+        }
+        functions.clear();
+    }
+
+    private void applyFilter(IntPredicate predicate) {
+        IntList filteredInts = new IntList();
+        for (int x : ints) {
+            if (predicate.test(x)) {
+                filteredInts.add(x);
+            }
+        }
+        ints = filteredInts;
+    }
+
+    private void applyMap(IntUnaryOperator mapper) {
+        IntList mappedInts = new IntList();
+        for (int x : ints) {
+            mappedInts.add(mapper.apply(x));
+        }
+        ints = mappedInts;
+    }
+
+    private void applyFlatMap(IntToIntStreamFunction function) {
+        IntList flatMappedInts = new IntList();
+        for (int x : ints) {
+            AsIntStream generatedIntStream =
+                    (AsIntStream) function.applyAsIntStream(x);
+            flatMappedInts.addList(generatedIntStream.ints);
+        }
+        ints = flatMappedInts;
+    }
+
     @Override
     public Double average() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (double)sum() / count();
     }
 
     @Override
     public Integer max() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        applyModifiers();
+        int maximum = Integer.MIN_VALUE;
+        for (int x : ints) {
+            if (x > maximum) {
+                maximum = x;
+            }
+        }
+        return maximum;
     }
 
     @Override
     public Integer min() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        applyModifiers();
+        int minimum = Integer.MAX_VALUE;
+        for (int x : ints) {
+            if (x < minimum) {
+                minimum = x;
+            }
+        }
+        return minimum;
     }
 
     @Override
     public long count() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        applyModifiers();
+        return ints.length();
     }
 
     @Override
     public IntStream filter(IntPredicate predicate) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        functions.add(predicate);
+        return this;
     }
 
     @Override
     public void forEach(IntConsumer action) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        applyModifiers();
+        for (int x : ints) {
+            action.accept(x);
+        }
     }
 
     @Override
     public IntStream map(IntUnaryOperator mapper) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        functions.add(mapper);
+        return this;
     }
 
     @Override
-    public int reduce(int identity, IntBinaryOperator op) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public int reduce(int identity, IntBinaryOperator operator) {
+        applyModifiers();
+        for (int x : ints) {
+            identity = operator.apply(identity, x);
+        }
+        return identity;
     }
 
     @Override
     public Integer sum() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        applyModifiers();
+        int sum = 0;
+        for (int x : ints) {
+            sum += x;
+        }
+        return sum;
     }
 
     @Override
     public int[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        applyModifiers();
+        return ints.toArray();
     }
 
     @Override
-    public IntStream flatMap(IntToIntStreamFunction func) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public IntStream flatMap(IntToIntStreamFunction function) {
+        functions.add(function);
+        return this;
     }
 
 }
