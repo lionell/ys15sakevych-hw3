@@ -190,15 +190,6 @@ public class AsIntStreamTest {
 
         assertEquals(new IntList(45, 1, 25), objective);
     }
-
-    @Test(expected = IllegalStateException.class)
-    public void forEach_tryReuseStream_shouldThrowException() {
-        IntStream stream = AsIntStream.of(1, 2, 3);
-        IntList objective = new IntList();
-
-        stream.forEach(objective::add);
-        stream.forEach(objective::add);
-    }
     //</editor-fold>
 
     //<editor-fold desc="map">
@@ -343,7 +334,7 @@ public class AsIntStreamTest {
     }
     //</editor-fold>
 
-    //<editor-fold desc="equals">
+    //<editor-fold desc="equals/hashCode">
     @Test
     public void equals_twoEqualReferences() {
         IntStream stream = AsIntStream.of(1, 2, 3);
@@ -383,7 +374,6 @@ public class AsIntStreamTest {
 
         assertEquals(stream1, stream2);
     }
-    //</editor-fold>
 
     @Test
     public void hashCode_differentStreams() {
@@ -411,4 +401,5 @@ public class AsIntStreamTest {
 
         assertEquals(stream1.hashCode(), stream2.hashCode());
     }
+    //</editor-fold>
 }
