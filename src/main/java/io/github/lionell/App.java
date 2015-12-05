@@ -1,6 +1,5 @@
 package io.github.lionell;
 
-import ua.yandex.shad.containers.IntList;
 import ua.yandex.shad.stream.AsIntStream;
 import ua.yandex.shad.stream.IntStream;
 

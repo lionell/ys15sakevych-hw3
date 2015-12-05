@@ -21,8 +21,8 @@ public class Sieve {
                     primes.add(x);
                     return true;
                 })
-                .map(x -> x * x)
-                .filter(x -> x < 300)
+//                .map(x -> x * x)
+//                .filter(x -> x < 300)
                 .forEach(System.out::println);
     }
 
